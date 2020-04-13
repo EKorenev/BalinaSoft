@@ -3,10 +3,10 @@ package com.izhenius.balinasoft
 import com.izhenius.balinasoft.entity.PagePhotoTypeDtoOut
 import com.izhenius.balinasoft.entity.PhotoDtoOut
 import com.izhenius.balinasoft.entity.PhotoTypeDtoOut
-import okhttp3.MediaType
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -62,12 +62,16 @@ object PhotoDataBase {
         if (photoTypeDtoOut == null) {
             presenter.onPhotoUploadResult(false)
         } else {
-            presenter.onPhotoUploadResult(false)
-            val requestPhoto = RequestBody.create("image/*".toMediaTypeOrNull(), photo)
-            val partPhoto = MultipartBody.Part.createFormData("photo", photo.name, requestPhoto)
-            val partName = MultipartBody.Part.createFormData("name", photoTypeDtoOut.name)
-            val partId = MultipartBody.Part.createFormData("typeId", photoTypeDtoOut.id.toString())
-            PhotoProvider.provideApi().uploadPhoto(partName, partPhoto, partId)
+            val partBodyPhoto = MultipartBody.Part.createFormData(
+                "photo",
+                photo.name,
+                photo.asRequestBody("image/*".toMediaType())
+            )
+            val requestBodyName =
+                photoTypeDtoOut.name.toRequestBody("multipart/form-data".toMediaType())
+            val requestBodyId = photoTypeDtoOut.id.toString()
+                .toRequestBody("multipart/form-data".toMediaType())
+            PhotoProvider.provideApi().uploadPhoto(requestBodyName, partBodyPhoto, requestBodyId)
                 .enqueue(
                     object : Callback<PhotoDtoOut> {
                         override fun onFailure(call: Call<PhotoDtoOut>, t: Throwable) {
@@ -80,7 +84,6 @@ object PhotoDataBase {
                         ) {
                             presenter.onPhotoUploadResult(response.body() is PhotoDtoOut)
                         }
-
                     }
                 )
         }
