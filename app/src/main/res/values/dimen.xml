@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="main_text_size">22sp</dimen>
+    <dimen name="photo_type_name_text_size">19sp</dimen>
+    <dimen name="photo_type_fields_text_size">14sp</dimen>
+    <dimen name="photo_type_values_text_size">14sp</dimen>
+    <dimen name="photo_type_main_margin">15dp</dimen>
+    <dimen name="photo_type_image_background_padding">3dp</dimen>
+</resources>

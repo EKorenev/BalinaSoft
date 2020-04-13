@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">BalinaSoft</string>
+    <string name="main_header">Список</string>
+    <string name="photo_type_fields_id">id: </string>
+</resources>

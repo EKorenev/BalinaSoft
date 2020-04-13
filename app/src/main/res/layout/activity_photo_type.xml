@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/photo_type_main_margin"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/imageViewBackground"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginStart="@dimen/photo_type_main_margin"
+        android:layout_marginEnd="@dimen/photo_type_main_margin"
+        android:layout_marginBottom="@dimen/photo_type_main_margin"
+        android:background="@drawable/rectangle_border"
+        android:paddingTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/viewUserImageGroup"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/image_user_background"
+        app:layout_constraintBottom_toBottomOf="@id/imageViewBackground"
+        app:layout_constraintDimensionRatio="h, 4:4"
+        app:layout_constraintEnd_toStartOf="@id/viewDescription"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toStartOf="@id/imageViewBackground"
+        app:layout_constraintTop_toTopOf="@id/imageViewBackground" />
+
+    <ImageView
+        android:id="@+id/imageViewPhotoType"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="1dp"
+        android:background="@drawable/image_user_border"
+        android:padding="@dimen/photo_type_image_background_padding"
+        app:layout_constraintBottom_toBottomOf="@id/viewUserImageGroup"
+        app:layout_constraintDimensionRatio="h, 4:4"
+        app:layout_constraintEnd_toEndOf="@id/viewUserImageGroup"
+        app:layout_constraintStart_toStartOf="@id/viewUserImageGroup"
+        app:layout_constraintTop_toTopOf="@id/viewUserImageGroup" />
+
+    <ImageView
+        android:id="@+id/imageViewNoUserPhotoType"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/image_no_user"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@id/imageViewPhotoType"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewPhotoType"
+        app:layout_constraintStart_toStartOf="@+id/imageViewPhotoType"
+        app:layout_constraintTop_toTopOf="@id/imageViewPhotoType" />
+
+    <ProgressBar
+        android:id="@+id/progressBarPhotoType"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewPhotoType"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewPhotoType"
+        app:layout_constraintStart_toStartOf="@+id/imageViewPhotoType"
+        app:layout_constraintTop_toTopOf="@+id/imageViewPhotoType" />
+
+    <View
+        android:id="@+id/viewDescription"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintBottom_toBottomOf="@id/viewUserImageGroup"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewBackground"
+        app:layout_constraintHorizontal_weight="4"
+        app:layout_constraintStart_toEndOf="@+id/viewUserImageGroup"
+        app:layout_constraintTop_toTopOf="@+id/viewUserImageGroup" />
+
+    <TextView
+        android:id="@+id/textViewPhotoTypeHeader"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center_vertical"
+        android:textColor="@color/colorFontPhotoTypeName"
+        android:textSize="@dimen/photo_type_name_text_size"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/viewDescriptionDetails"
+        app:layout_constraintEnd_toEndOf="@id/viewDescription"
+        app:layout_constraintStart_toStartOf="@id/viewDescription"
+        app:layout_constraintTop_toTopOf="@id/viewDescription"
+        app:layout_constraintVertical_chainStyle="spread_inside"
+        app:layout_constraintVertical_weight="1" />
+
+    <View
+        android:id="@+id/viewDescriptionDetails"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@id/viewDescription"
+        app:layout_constraintEnd_toEndOf="@id/viewDescription"
+        app:layout_constraintStart_toStartOf="@id/viewDescription"
+        app:layout_constraintTop_toBottomOf="@id/textViewPhotoTypeHeader"
+        app:layout_constraintVertical_chainStyle="spread_inside"
+        app:layout_constraintVertical_weight="1" />
+
+    <TextView
+        android:id="@+id/textViewPhotoTypeDetailsFieldId"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:gravity="center_vertical"
+        android:text="@string/photo_type_fields_id"
+        android:textColor="@color/colorFontPhotoTypeFields"
+        android:textSize="@dimen/photo_type_fields_text_size"
+        app:layout_constraintBottom_toBottomOf="@id/viewDescriptionDetails"
+        app:layout_constraintEnd_toStartOf="@id/textViewPhotoTypeDetailsValueId"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="@id/viewDescriptionDetails"
+        app:layout_constraintTop_toTopOf="@id/viewDescriptionDetails" />
+
+    <TextView
+        android:id="@+id/textViewPhotoTypeDetailsValueId"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center_vertical"
+        android:textColor="@color/colorFontPhotoTypeValues"
+        android:textSize="@dimen/photo_type_values_text_size"
+        app:layout_constraintBottom_toBottomOf="@id/viewDescriptionDetails"
+        app:layout_constraintEnd_toEndOf="@id/viewDescriptionDetails"
+        app:layout_constraintStart_toEndOf="@id/textViewPhotoTypeDetailsFieldId"
+        app:layout_constraintTop_toTopOf="@id/viewDescriptionDetails" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

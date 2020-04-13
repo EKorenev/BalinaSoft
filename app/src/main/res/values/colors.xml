@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#2D5AD6</color>
+    <color name="colorPrimaryDark">#2D5AD6</color>
+    <color name="colorAccent">#03DAC5</color>
+    <color name="colorMainActivity">#3367D6</color>
+    <color name="colorBorder">#BFCFCECE</color>
+    <color name="colorFontMain">#FFFFFF</color>
+    <color name="colorPhotoTypeBackground">#FEFEFE</color>
+    <color name="colorFontPhotoTypeName">#060606</color>
+    <color name="colorFontPhotoTypeFields">#8F8F8F</color>
+    <color name="colorFontPhotoTypeValues">#3367D6</color>
+</resources>
