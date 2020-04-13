@@ -24,11 +24,11 @@ interface PhotoApi {
     @Multipart
     @POST("/api/v2/photo")
     fun uploadPhoto(
-        @Part("name")
-        name: RequestBody,
-        @Part("photo")
+        @Part
+        name: MultipartBody.Part,
+        @Part
         photo: MultipartBody.Part,
-        @Part("typeId")
-        typeId: RequestBody
+        @Part
+        typeId: MultipartBody.Part
     ): Call<PhotoDtoOut>
 }

@@ -1,7 +1,12 @@
 package com.izhenius.balinasoft
 
 import com.izhenius.balinasoft.entity.PagePhotoTypeDtoOut
+import com.izhenius.balinasoft.entity.PhotoDtoOut
 import com.izhenius.balinasoft.entity.PhotoTypeDtoOut
+import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -58,22 +63,26 @@ object PhotoDataBase {
             presenter.onPhotoUploadResult(false)
         } else {
             presenter.onPhotoUploadResult(false)
-//            PhotoProvider.provideApi().uploadPhoto(photoTypeDtoOut.name, photo, photoTypeDtoOut.id)
-//                .enqueue(
-//                    object : Callback<PhotoDtoOut> {
-//                        override fun onFailure(call: Call<PhotoDtoOut>, t: Throwable) {
-//                            presenter.onPhotoUploadResult(false)
-//                        }
-//
-//                        override fun onResponse(
-//                            call: Call<PhotoDtoOut>,
-//                            response: Response<PhotoDtoOut>
-//                        ) {
-//                            presenter.onPhotoUploadResult(response.body() is PhotoDtoOut)
-//                        }
-//
-//                    }
-//                )
+            val requestPhoto = RequestBody.create("image/*".toMediaTypeOrNull(), photo)
+            val partPhoto = MultipartBody.Part.createFormData("photo", photo.name, requestPhoto)
+            val partName = MultipartBody.Part.createFormData("name", photoTypeDtoOut.name)
+            val partId = MultipartBody.Part.createFormData("typeId", photoTypeDtoOut.id.toString())
+            PhotoProvider.provideApi().uploadPhoto(partName, partPhoto, partId)
+                .enqueue(
+                    object : Callback<PhotoDtoOut> {
+                        override fun onFailure(call: Call<PhotoDtoOut>, t: Throwable) {
+                            presenter.onPhotoUploadResult(false)
+                        }
+
+                        override fun onResponse(
+                            call: Call<PhotoDtoOut>,
+                            response: Response<PhotoDtoOut>
+                        ) {
+                            presenter.onPhotoUploadResult(response.body() is PhotoDtoOut)
+                        }
+
+                    }
+                )
         }
     }
 
