@@ -1,4 +1,4 @@
-package com.izhenius.balinasoft
+package com.izhenius.balinasoft.ui.screen.list.view
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,7 +7,9 @@ import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.izhenius.balinasoft.entity.PhotoTypeDtoOut
+import com.izhenius.balinasoft.R
+import com.izhenius.balinasoft.data.database.PhotoData
+import com.izhenius.balinasoft.data.entity.PhotoTypeDtoOut
 import com.izhenius.balinasoft.utils.ImageLoader
 
 class PhotoTypeDtoOutAdapter(private val onPhotoTypeListener: OnPhotoTypeListener) :
@@ -24,11 +26,12 @@ class PhotoTypeDtoOutAdapter(private val onPhotoTypeListener: OnPhotoTypeListene
     }
 
     override fun getItemCount(): Int {
-        return PhotoDataBase.getListPhotoTypeSize()
+        return PhotoData.getListPhotoTypeSize()
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        val photoTypeDtoOut = PhotoDataBase.getPhotoType(position)
+        val photoTypeDtoOut =
+            PhotoData.getPhotoType(position)
         viewHolder.bind(photoTypeDtoOut)
     }
 

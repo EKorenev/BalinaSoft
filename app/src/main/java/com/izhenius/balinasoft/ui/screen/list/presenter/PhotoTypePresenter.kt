@@ -1,6 +1,7 @@
-package com.izhenius.balinasoft
+package com.izhenius.balinasoft.ui.screen.list.presenter
 
-interface PhotoTypePresenter : BasePresenter {
+interface PhotoTypePresenter :
+    BasePresenter {
     fun loadNewPhoto(visibleItemCount: Int, firstVisibleItemPosition: Int, totalItemCount: Int)
     fun uploadPhoto()
     fun onPhotoUploadResult(isSuccess: Boolean)

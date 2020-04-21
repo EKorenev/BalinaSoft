@@ -1,4 +1,4 @@
-package com.izhenius.balinasoft
+package com.izhenius.balinasoft.ui.screen.list.view
 
 import android.app.Activity
 import android.content.Context
@@ -9,10 +9,15 @@ import android.provider.MediaStore
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.izhenius.balinasoft.R
+import com.izhenius.balinasoft.ui.screen.list.presenter.MainActivityPresenter
+import com.izhenius.balinasoft.ui.screen.list.presenter.PhotoTypePresenter
 
 const val REQUEST_TAKE_PHOTO = 1
 
-class MainActivity : Activity(), BaseView, OnPhotoTypeListener {
+class MainActivity : Activity(),
+    PhotoTypeView,
+    OnPhotoTypeListener {
 
     private lateinit var adapter: RecyclerView.Adapter<PhotoTypeDtoOutAdapter.ViewHolder>
     private lateinit var layoutManager: LinearLayoutManager
@@ -46,8 +51,7 @@ class MainActivity : Activity(), BaseView, OnPhotoTypeListener {
 
         recyclerView.addOnScrollListener(recyclerViewOnScrollListener)
 
-        presenter = MainActivityPresenter()
-        presenter.setView(this)
+        presenter = MainActivityPresenter(this)
         presenter.loadData()
     }
 
@@ -71,7 +75,10 @@ class MainActivity : Activity(), BaseView, OnPhotoTypeListener {
         Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
             takePictureIntent.resolveActivity(packageManager)?.also {
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageURI)
-                startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO)
+                startActivityForResult(
+                    takePictureIntent,
+                    REQUEST_TAKE_PHOTO
+                )
             }
         }
     }

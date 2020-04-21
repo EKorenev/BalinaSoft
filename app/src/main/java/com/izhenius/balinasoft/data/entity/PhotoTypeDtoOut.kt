@@ -1,4 +1,4 @@
-package com.izhenius.balinasoft.entity
+package com.izhenius.balinasoft.data.entity
 
 data class PhotoTypeDtoOut(
     val id: Int,

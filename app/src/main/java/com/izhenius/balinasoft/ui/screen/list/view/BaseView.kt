@@ -1,11 +1,9 @@
-package com.izhenius.balinasoft
+package com.izhenius.balinasoft.ui.screen.list.view
 
 import android.content.Context
-import android.net.Uri
 
 interface BaseView {
     fun getContext(): Context
     fun updateFields()
     fun showToast(text: String)
-    fun openTakePictureIntent(imageURI: Uri)
 }

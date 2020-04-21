@@ -1,6 +1,4 @@
-package com.izhenius.balinasoft.entity
-
-import com.izhenius.balinasoft.entity.PhotoTypeDtoOut
+package com.izhenius.balinasoft.data.entity
 
 data class PagePhotoTypeDtoOut(
     val content: List<PhotoTypeDtoOut>,
