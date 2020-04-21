@@ -1,7 +1,7 @@
-package com.izhenius.balinasoft
+package com.izhenius.balinasoft.data.api
 
-import com.izhenius.balinasoft.entity.PagePhotoTypeDtoOut
-import com.izhenius.balinasoft.entity.PhotoDtoOut
+import com.izhenius.balinasoft.data.entity.PagePhotoTypeDtoOut
+import com.izhenius.balinasoft.data.entity.PhotoDtoOut
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call

@@ -1,22 +1,24 @@
-package com.izhenius.balinasoft
+package com.izhenius.balinasoft.ui.screen.list.presenter
 
 import android.net.Uri
 import androidx.core.content.FileProvider
+import com.izhenius.balinasoft.data.database.PhotoData
+import com.izhenius.balinasoft.data.repository.providePhotoRepository
+import com.izhenius.balinasoft.ui.screen.list.view.PhotoTypeView
 import com.izhenius.balinasoft.utils.ImageCreator
 import okio.IOException
 import java.io.File
 
-class MainActivityPresenter : PhotoTypePresenter {
+class MainActivityPresenter(private val view: PhotoTypeView) :
+    PhotoTypePresenter {
 
-    private var view: BaseView? = null
+    private val photoRepository = providePhotoRepository()
     private var currentPhotoTypeId: Int? = null
     private var isLoading: Boolean = false
 
     override fun takePhoto(photoTypeIndex: Int) {
-        view?.let {
-            currentPhotoTypeId = photoTypeIndex
-            dispatchTakePictureIntent(it)
-        }
+        currentPhotoTypeId = photoTypeIndex
+        dispatchTakePictureIntent()
     }
 
     override fun cancelPhotoUploading() {
@@ -24,21 +26,21 @@ class MainActivityPresenter : PhotoTypePresenter {
             currentPhotoTypeId = null
     }
 
-    override fun setView(view: BaseView) {
-        this.view = view
-    }
-
     override fun loadData() {
         isLoading = true
-        PhotoDataBase.loadPhotoTypes(this)
+        photoRepository.loadPhotoTypes(this)
     }
 
-    override fun loadNewPhoto(visibleItemCount: Int, firstVisibleItemPosition: Int, totalItemCount: Int) {
-        if (!isLoading && !PhotoDataBase.isLastPage()) {
-            if (visibleItemCount + firstVisibleItemPosition >= totalItemCount && firstVisibleItemPosition >= 0 && totalItemCount >= PhotoDataBase.pageSize
+    override fun loadNewPhoto(
+        visibleItemCount: Int,
+        firstVisibleItemPosition: Int,
+        totalItemCount: Int
+    ) {
+        if (!isLoading && !PhotoData.isLastPage()) {
+            if (visibleItemCount + firstVisibleItemPosition >= totalItemCount && firstVisibleItemPosition >= 0 && totalItemCount >= PhotoData.pageSize
             ) {
                 isLoading = true
-                PhotoDataBase.loadPhotoTypes(this)
+                photoRepository.loadPhotoTypes(this)
             }
         }
     }
@@ -46,7 +48,11 @@ class MainActivityPresenter : PhotoTypePresenter {
     override fun uploadPhoto() {
         currentPhotoTypeId?.let { id ->
             ImageCreator.getCurrentImageFile()?.let { imageFile ->
-                PhotoDataBase.uploadPhoto(this, id, imageFile)
+                photoRepository.uploadPhoto(
+                    this,
+                    id,
+                    imageFile
+                )
             }
         }
     }
@@ -54,21 +60,21 @@ class MainActivityPresenter : PhotoTypePresenter {
     override fun onDataLoadResult(isSuccess: Boolean) {
         if (isSuccess) {
             isLoading = false
-            view?.updateFields()
+            view.updateFields()
         } else {
-            view?.showToast("Load error!")
+            view.showToast("Load error!")
         }
     }
 
     override fun onPhotoUploadResult(isSuccess: Boolean) {
         if (isSuccess) {
-            view?.showToast("Photo is uploaded!")
+            view.showToast("Photo is uploaded!")
         } else {
-            view?.showToast("Upload error!")
+            view.showToast("Upload error!")
         }
     }
 
-    private fun dispatchTakePictureIntent(view: BaseView) {
+    private fun dispatchTakePictureIntent() {
         val context = view.getContext()
         val photoFile: File? = try {
             ImageCreator.createImageFile(context)

@@ -1,7 +1,6 @@
-package com.izhenius.balinasoft
+package com.izhenius.balinasoft.ui.screen.list.presenter
 
 interface BasePresenter {
-    fun setView(view: BaseView)
     fun loadData()
     fun onDataLoadResult(isSuccess: Boolean)
 }

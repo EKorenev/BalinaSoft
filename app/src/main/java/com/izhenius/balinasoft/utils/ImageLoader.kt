@@ -41,7 +41,12 @@ object ImageLoader {
 
             override fun onError(e: Exception?) {
                 imageViewDownloader.visibility = View.GONE
-                loadResource(imageView, imageViewError.id, imageViewError.id, isNeedCircleTransformation)
+                loadResource(
+                    imageView,
+                    imageViewError.id,
+                    imageViewError.id,
+                    isNeedCircleTransformation
+                )
             }
         }
         )
