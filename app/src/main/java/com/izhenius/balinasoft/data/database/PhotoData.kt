@@ -27,7 +27,7 @@ object PhotoData : PhotoDatabase {
     }
 
     override fun getNextPage(): Int {
-        return ++currentPage
+        return currentPage + 1
     }
 
     override fun updateData(pagePhotoTypeDtoOut: PagePhotoTypeDtoOut) {
