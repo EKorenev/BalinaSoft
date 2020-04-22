@@ -2,7 +2,6 @@ package com.izhenius.balinasoft.ui.screen.list.presenter
 
 import android.net.Uri
 import androidx.core.content.FileProvider
-import com.izhenius.balinasoft.data.database.PhotoData
 import com.izhenius.balinasoft.data.repository.providePhotoRepository
 import com.izhenius.balinasoft.ui.screen.list.view.PhotoTypeView
 import com.izhenius.balinasoft.utils.ImageCreator
@@ -36,8 +35,8 @@ class MainActivityPresenter(private val view: PhotoTypeView) :
         firstVisibleItemPosition: Int,
         totalItemCount: Int
     ) {
-        if (!isLoading && !PhotoData.isLastPage()) {
-            if (visibleItemCount + firstVisibleItemPosition >= totalItemCount && firstVisibleItemPosition >= 0 && totalItemCount >= PhotoData.pageSize
+        if (!isLoading && !photoRepository.isLastPage()) {
+            if (visibleItemCount + firstVisibleItemPosition >= totalItemCount && firstVisibleItemPosition >= 0 && totalItemCount >= photoRepository.getPageSize()
             ) {
                 isLoading = true
                 photoRepository.loadPhotoTypes(this)
@@ -63,11 +62,7 @@ class MainActivityPresenter(private val view: PhotoTypeView) :
             view.updateFields()
             view.hideConnectionError()
         } else {
-            if (photoRepository.getListPhotoTypeSize() > 0) {
-                view.showToast("Load error!")
-            } else {
-                view.showConnectionError()
-            }
+            view.showConnectionError()
         }
     }
 

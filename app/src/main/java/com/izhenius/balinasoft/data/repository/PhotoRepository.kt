@@ -9,6 +9,7 @@ interface PhotoRepository {
     fun getListPhotoTypeSize(): Int
     fun getPhotoType(index: Int): PhotoTypeDtoOut?
     fun isLastPage(): Boolean
+    fun getPageSize(): Int
     fun loadPhotoTypes(presenter: BasePresenter)
     fun uploadPhoto(presenter: PhotoTypePresenter, photoTypeId: Int, photo: File)
 }

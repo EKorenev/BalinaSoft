@@ -7,8 +7,7 @@ object PhotoData : PhotoDatabase {
     private val listPhotoTypeDtoOut = ArrayList<PhotoTypeDtoOut>()
     private var currentPage: Int = -1
     private var totalPages: Int = 0
-    var pageSize: Int = 0
-        private set
+    private var pageSize: Int = 0
     private var itemOnPageCount: Int = 0
 
     override fun getListPhotoTypeSize(): Int {
@@ -24,6 +23,10 @@ object PhotoData : PhotoDatabase {
 
     override fun isLastPage(): Boolean {
         return currentPage >= totalPages
+    }
+
+    override fun getPageSize(): Int {
+        return pageSize
     }
 
     override fun getNextPage(): Int {

@@ -7,6 +7,7 @@ interface PhotoDatabase {
     fun getListPhotoTypeSize(): Int
     fun getPhotoType(index: Int): PhotoTypeDtoOut?
     fun isLastPage(): Boolean
+    fun getPageSize(): Int
     fun getNextPage(): Int
     fun updateData(pagePhotoTypeDtoOut: PagePhotoTypeDtoOut)
 }

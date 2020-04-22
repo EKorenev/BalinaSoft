@@ -30,6 +30,10 @@ class PhotoRepositoryRemote(private val api: PhotoApi, private val database: Pho
         return database.isLastPage()
     }
 
+    override fun getPageSize(): Int {
+        return database.getPageSize()
+    }
+
     override fun loadPhotoTypes(presenter: BasePresenter) {
         api.getPhotoTypes(database.getNextPage()).enqueue(object : Callback<PagePhotoTypeDtoOut> {
             override fun onFailure(call: Call<PagePhotoTypeDtoOut>, t: Throwable) {
