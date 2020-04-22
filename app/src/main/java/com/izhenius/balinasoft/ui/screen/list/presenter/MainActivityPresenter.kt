@@ -61,8 +61,13 @@ class MainActivityPresenter(private val view: PhotoTypeView) :
         if (isSuccess) {
             isLoading = false
             view.updateFields()
+            view.hideConnectionError()
         } else {
-            view.showToast("Load error!")
+            if (photoRepository.getListPhotoTypeSize() > 0) {
+                view.showToast("Load error!")
+            } else {
+                view.showConnectionError()
+            }
         }
     }
 

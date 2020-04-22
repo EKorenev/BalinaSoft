@@ -6,4 +6,6 @@ interface BaseView {
     fun getContext(): Context
     fun updateFields()
     fun showToast(text: String)
+    fun showConnectionError()
+    fun hideConnectionError()
 }

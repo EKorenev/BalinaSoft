@@ -1,12 +1,14 @@
 package com.izhenius.balinasoft.ui.screen.list.view
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.view.View
+import android.widget.ImageView
 import android.widget.Toast
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.izhenius.balinasoft.R
@@ -15,10 +17,11 @@ import com.izhenius.balinasoft.ui.screen.list.presenter.PhotoTypePresenter
 
 const val REQUEST_TAKE_PHOTO = 1
 
-class MainActivity : Activity(),
+class MainActivity : FragmentActivity(),
     PhotoTypeView,
     OnPhotoTypeListener {
 
+    private lateinit var imageConnectionError: ImageView
     private lateinit var adapter: RecyclerView.Adapter<PhotoTypeDtoOutAdapter.ViewHolder>
     private lateinit var layoutManager: LinearLayoutManager
     private lateinit var recyclerView: RecyclerView
@@ -28,6 +31,7 @@ class MainActivity : Activity(),
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        imageConnectionError = findViewById(R.id.imageConnectionError)
         adapter = PhotoTypeDtoOutAdapter(this)
         layoutManager = LinearLayoutManager(this)
         recyclerView = findViewById(R.id.recyclerView)
@@ -69,6 +73,19 @@ class MainActivity : Activity(),
 
     override fun showToast(text: String) {
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun showConnectionError() {
+        InternetErrorDialogFragment().show(supportFragmentManager, "InternetErrorDialogFragment")
+        if (adapter.itemCount == 0) {
+            imageConnectionError.visibility = View.VISIBLE
+        }
+    }
+
+    override fun hideConnectionError() {
+        if (adapter.itemCount > 0) {
+            imageConnectionError.visibility = View.INVISIBLE
+        }
     }
 
     override fun openTakePictureIntent(imageURI: Uri) {
